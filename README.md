@@ -1,1 +1,1 @@
-Using the RaspberryPiCommon New Project template to make an example UI.
+Python and Kivy app that does some stuff!
