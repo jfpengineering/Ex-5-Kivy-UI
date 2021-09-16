@@ -6,6 +6,8 @@ import os
 from kivy.app import App
 from kivy.core.window import Window
 from kivy.lang import Builder
+from kivy.properties import ObjectProperty
+from kivy.uix import label
 from kivy.uix.screenmanager import ScreenManager, Screen
 
 from pidev.MixPanel import MixPanel
@@ -14,6 +16,7 @@ from pidev.kivy.PauseScreen import PauseScreen
 from pidev.kivy import DPEAButton
 from pidev.kivy import ImageButton
 from pidev.kivy.selfupdatinglabel import SelfUpdatingLabel
+from kivy.uix.slider import Slider
 
 from datetime import datetime
 
@@ -25,6 +28,7 @@ MIXPANEL = MixPanel("Project Name", MIXPANEL_TOKEN)
 SCREEN_MANAGER = ScreenManager()
 MAIN_SCREEN_NAME = 'main'
 ADMIN_SCREEN_NAME = 'admin'
+OTHER_SCREEN_NAME = "other_screen"
 
 
 class ProjectNameGUI(App):
@@ -47,6 +51,13 @@ class MainScreen(Screen):
     """
     Class to handle the main screen and its associated touch events
     """
+    toggle_btn = ObjectProperty(None)
+    counter_btn = ObjectProperty(None)
+    counter_label = ObjectProperty(None)
+    motor_label = ObjectProperty(None)
+    motor_btn = ObjectProperty(None)
+    slider = ObjectProperty(None)
+    slider_label = ObjectProperty(None)
 
     def pressed(self):
         """
@@ -62,6 +73,42 @@ class MainScreen(Screen):
         :return: None
         """
         SCREEN_MANAGER.current = 'passCode'
+
+    def toggle_text(self):
+        if self.toggle_btn.text == "Toggle":
+            self.toggle_btn.text = ""
+        else:
+            self.toggle_btn.text = "Toggle"
+
+    def counter(self):
+        i = int(self.counter_label.text)
+        value = int(i+1)
+        self.counter_label.text = str(value)
+
+    def motor_toggle(self):
+        if self.motor_label.text == "Motor OFF":
+            self.motor_label.text = "Motor ON"
+        else:
+            self.motor_label.text = "Motor OFF"
+
+    def slider_press(self):
+        value = int(self.slider.value)
+        self.slider_label.text = str(value)+" / 100"
+        print(value)
+
+    @staticmethod
+    def other_screen_go_to():
+        SCREEN_MANAGER.current = OTHER_SCREEN_NAME
+
+class OtherScreen(Screen):
+
+    def __init__(self, **kwargs):
+        Builder.load_file('OtherScreen.kv')
+        super(OtherScreen, self).__init__(**kwargs)
+
+    @staticmethod
+    def transition_back():
+        SCREEN_MANAGER.current = MAIN_SCREEN_NAME
 
 
 class AdminScreen(Screen):
@@ -113,6 +160,7 @@ Widget additions
 
 Builder.load_file('main.kv')
 SCREEN_MANAGER.add_widget(MainScreen(name=MAIN_SCREEN_NAME))
+SCREEN_MANAGER.add_widget(OtherScreen(name=OTHER_SCREEN_NAME))
 SCREEN_MANAGER.add_widget(PassCodeScreen(name='passCode'))
 SCREEN_MANAGER.add_widget(PauseScreen(name='pauseScene'))
 SCREEN_MANAGER.add_widget(AdminScreen(name=ADMIN_SCREEN_NAME))

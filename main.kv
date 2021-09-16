@@ -2,14 +2,22 @@
     #: import time __main__.time
 
     name: 'main'
+    toggle_btn: toggle_btn
+    counter_btn: counter_btn
+    counter_label: counter_label
+    motor_label: motor_label
+    motor_btn: motor_btn
+    slider_label: slider_label
+    slider: slider
+
     FloatLayout:
         size_hint: None, None
 
     DPEAButton:
         id: test_button
-        text: 'test'
+        text: 'test1'
         size: 100, 100
-        x: root.width * 0.75
+        x: root.width * 0.08
         y: root.height * 0.5
         color: 0, 1, 0, 1
         on_press: root.pressed()
@@ -17,10 +25,84 @@
     DPEAButton:
         text: "test2"
         size: 100, 100
-        x: root.width * 0.25
+        x: root.width * 0.3
         y: root.height * 0.5
         color: 1, 0, 0, 1
         on_press: root.pressed()
+
+    DPEAButton:
+        id: toggle_btn
+        text: "Toggle"
+        size: 100, 100
+        x: root.width * 0.55
+        y: root.height * 0.5
+        color: 1, 0, 0, 1
+        on_press: root.toggle_text()
+
+    DPEAButton:
+        id: counter_btn
+        text: "Counter"
+        size: 100, 100
+        x: root.width * 0.8
+        y: root.height * 0.5
+        color: 1, 0, 0, 1
+        on_press: root.counter()
+
+    DPEAButton:
+        id: counter_label
+        text: "0"
+        size: 100, 100
+        x: root.width * 0.8
+        y: root.height * 0.3
+        color: 0, .7, .8, 1
+
+    DPEAButton:
+        id: motor_btn
+        text: "Motor Toggle"
+        size: 100, 100
+        x: root.width * 0.7
+        y: root.height * 0.8
+        color: 0, 1, 1, .5
+        on_press: root.motor_toggle()
+
+    Label:
+        id: motor_label
+        text: "Motor OFF"
+        size_hint: None, None
+        center_x: root.width * .775
+        center_y: root.height * .75
+        color: 0, 0, 1, 1
+        font_size: 20
+
+    Slider:
+        id: slider
+        text: "Position"
+        size_hint: 1, .08
+        center_y: root.height * .25
+        color: 1, 0, 1, 1
+        min: 0
+        max: 100
+        step: 1
+        on_value: root.slider_press()
+
+    Label:
+        id: slider_label
+        text: "0 / 100"
+        size_hint: None, None
+        color: 1, 0, 1, 1
+        font_size: 20
+        center_x: root.width * .5
+        center_y: root.height * .8
+
+    Button:
+        id: image_btn
+        size_hint: None, None
+        size: 150, 150
+        background_normal: 'normal.jpg'
+        background_down: 'down.png'
+        center_x: root.width * 0.2
+        center_y: root.height * 0.85
+        on_press: root.other_screen_go_to()
 
     SelfUpdatingLabel:
         id: time_label
