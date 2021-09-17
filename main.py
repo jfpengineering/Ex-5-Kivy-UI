@@ -31,6 +31,7 @@ SCREEN_MANAGER = ScreenManager()
 MAIN_SCREEN_NAME = 'main'
 ADMIN_SCREEN_NAME = 'admin'
 OTHER_SCREEN_NAME = "other_screen"
+ANOTHER_SCREEN_NAME = "another_screen"
 
 
 class ProjectNameGUI(App):
@@ -130,7 +131,33 @@ class OtherScreen(Screen):
     def change_bkgrnd(self, *args):
 
         self.animated_btn.background_normal="thumbs_up.jpg"
+        SCREEN_MANAGER.current = ANOTHER_SCREEN_NAME
 
+
+class AnotherScreen(Screen):
+
+    animated_btn2 = ObjectProperty(None)
+
+    def __init__(self, **kwargs):
+        Builder.load_file('AnotherScreen.kv')
+        super(AnotherScreen, self).__init__(**kwargs)
+
+    def animate_it2(self, widget, *kwargs):
+
+        animate = Animation(size_hint = (.5, .25))
+        animate += Animation(size_hint = (.25, .25))
+        animate += Animation(pos_hint = {"center_x": .8})
+        animate += Animation(pos_hint={"center_y": .8})
+        animate += Animation(pos_hint={"center_x": .2})
+        animate += Animation(pos_hint={"center_y": .25})
+        animate += Animation(pos_hint={"center_x": .5})
+
+        animate.start(widget)
+        animate.bind(on_complete = self.move_back)
+
+    def move_back(self, *args):
+        self.animated_btn2.background_normal = "coder.png"
+        SCREEN_MANAGER.current = MAIN_SCREEN_NAME
 
 class AdminScreen(Screen):
     """
@@ -182,6 +209,7 @@ Widget additions
 Builder.load_file('main.kv')
 SCREEN_MANAGER.add_widget(MainScreen(name=MAIN_SCREEN_NAME))
 SCREEN_MANAGER.add_widget(OtherScreen(name=OTHER_SCREEN_NAME))
+SCREEN_MANAGER.add_widget(AnotherScreen(name=ANOTHER_SCREEN_NAME))
 SCREEN_MANAGER.add_widget(PassCodeScreen(name='passCode'))
 SCREEN_MANAGER.add_widget(PauseScreen(name='pauseScene'))
 SCREEN_MANAGER.add_widget(AdminScreen(name=ADMIN_SCREEN_NAME))

@@ -1,0 +1,12 @@
+<AnotherScreen>:
+    name: 'another_screen'
+    animated_btn2: animated_btn2
+
+    FloatLayout:
+        size_hint: None, None
+
+    Button:
+        id: animated_btn2
+        size_hint: .25, .25
+        pos_hint: {"center_x": .5, "center_y": .5}
+        on_release: root.animate_it2(self)
