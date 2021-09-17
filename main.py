@@ -17,6 +17,8 @@ from pidev.kivy import DPEAButton
 from pidev.kivy import ImageButton
 from pidev.kivy.selfupdatinglabel import SelfUpdatingLabel
 from kivy.uix.slider import Slider
+from kivy.uix.widget import Widget
+from kivy.animation import Animation
 
 from datetime import datetime
 
@@ -102,6 +104,8 @@ class MainScreen(Screen):
 
 class OtherScreen(Screen):
 
+    animated_btn = ObjectProperty(None)
+
     def __init__(self, **kwargs):
         Builder.load_file('OtherScreen.kv')
         super(OtherScreen, self).__init__(**kwargs)
@@ -109,6 +113,23 @@ class OtherScreen(Screen):
     @staticmethod
     def transition_back():
         SCREEN_MANAGER.current = MAIN_SCREEN_NAME
+
+    def animate_it(self, widget, *kwargs):
+
+        animate = Animation(size_hint = (.5, .25))
+        animate += Animation(size_hint = (.25, .25))
+        animate += Animation(pos_hint = {"center_x": .8})
+        animate += Animation(pos_hint={"center_y": .8})
+        animate += Animation(pos_hint={"center_x": .2})
+        animate += Animation(pos_hint={"center_y": .25})
+        animate += Animation(pos_hint={"center_x": .5})
+
+        animate.start(widget)
+        animate.bind(on_complete = self.change_bkgrnd)
+
+    def change_bkgrnd(self, *args):
+
+        self.animated_btn.background_normal="thumbs_up.jpg"
 
 
 class AdminScreen(Screen):

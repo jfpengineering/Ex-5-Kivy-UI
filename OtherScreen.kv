@@ -1,5 +1,7 @@
 <OtherScreen>:
     name: 'other_screen'
+    animated_btn: animated_btn
+
     FloatLayout:
         size_hint: None, None
 
@@ -10,3 +12,9 @@
         center_y: root.height * 0.5
         color: 0.035, 0.152, 0.725, 1
         on_press: root.transition_back()
+
+    Button:
+        id: animated_btn
+        size_hint: .25, .25
+        pos_hint: {"center_x": .5, "center_y": .25}
+        on_release: root.animate_it(self)
