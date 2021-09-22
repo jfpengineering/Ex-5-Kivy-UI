@@ -3,9 +3,9 @@
   <component name="WebServers">
     <option name="servers">
       <webServer id="2dc703b8-5dab-4e33-b503-6aaea7f61a74" name="Wired Pi">
-        <fileTransfer accessType="SFTP" host="172.17.21.2" port="22" sshConfigId="121fc274-7cff-4d9b-909e-0b72e0ad144d" sshConfig="pi@172.17.21.2:22 password">
+        <fileTransfer accessType="SFTP" sshConfigId="121fc274-7cff-4d9b-909e-0b72e0ad144d" sshConfig="pi@172.17.21.2:22 password">
           <advancedOptions>
-            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
           </advancedOptions>
         </fileTransfer>
       </webServer>

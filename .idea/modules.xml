@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/Ex-5-Kivy-UI.iml" filepath="$PROJECT_DIR$/.idea/Ex-5-Kivy-UI.iml" />
+      <module fileurl="file://$USER_HOME$/packages/RaspberryPiCommon/.idea/RaspberryPiCommon.iml" filepath="$USER_HOME$/packages/RaspberryPiCommon/.idea/RaspberryPiCommon.iml" />
     </modules>
   </component>
 </project>

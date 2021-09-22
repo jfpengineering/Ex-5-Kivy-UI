@@ -11,6 +11,7 @@
     slider_label: slider_label
     slider: slider
     joy_label: joy_label
+    pos_label: pos_label
 
     FloatLayout:
         size_hint: None, None
@@ -62,7 +63,7 @@
         id: motor_btn
         text: "Motor Toggle"
         size: 100, 100
-        x: root.width * 0.7
+        x: root.width * 0.75
         y: root.height * 0.8
         color: 0, 1, 1, .5
         on_press: root.motor_toggle()
@@ -113,6 +114,15 @@
         color: 0, 0, 0, 1
         font_size: 20
         center_x: root.width * .25
+        center_y: root.height * .25
+
+    Label:
+        id: pos_label
+        text: "[0.000000000000000, -0.000000000000000]"
+        size_hint: None, None
+        color: 0, 0, 0, 1
+        font_size: 20
+        center_x: root.width * .5
         center_y: root.height * .25
 
     #SelfUpdatingLabel:

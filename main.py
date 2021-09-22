@@ -69,6 +69,7 @@ class MainScreen(Screen):
     slider = ObjectProperty(None)
     slider_label = ObjectProperty(None)
     joy_label = ObjectProperty(None)
+    pos_label = ObjectProperty(None)
     joy = Joystick(0, False)
 
     def start_joy_thread(self):  # This should be inside the MainScreen Class
@@ -81,6 +82,9 @@ class MainScreen(Screen):
             else:
                 self.joy_label.text = "Not Pressed"
             sleep(.1)
+
+            if self.joy.get_axis('x') and self.joy.get_axis('y') != 0:
+                self.pos_label.text = str(self.joy.get_both_axes())
 
     def pressed(self):
         """
@@ -96,6 +100,12 @@ class MainScreen(Screen):
         :return: None
         """
         SCREEN_MANAGER.current = 'passCode'
+
+    def motor_toggle(self):
+        if self.motor_label.text == "Motor OFF":
+            self.motor_label.text = "Motor ON"
+        else:
+            self.motor_label.text = "Motor OFF"
 
     def toggle_text(self):
         if self.toggle_btn.text == "Toggle":
