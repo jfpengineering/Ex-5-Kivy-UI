@@ -19,8 +19,15 @@ from pidev.kivy.selfupdatinglabel import SelfUpdatingLabel
 from kivy.uix.slider import Slider
 from kivy.uix.widget import Widget
 from kivy.animation import Animation
+from pidev.Joystick import Joystick
+from threading import Thread
+from time import sleep
 
 from datetime import datetime
+import pygame.display
+
+os.environ["DISPLAY"] = ":0"
+pygame.display.init()
 
 time = datetime
 
@@ -61,6 +68,19 @@ class MainScreen(Screen):
     motor_btn = ObjectProperty(None)
     slider = ObjectProperty(None)
     slider_label = ObjectProperty(None)
+    joy_label = ObjectProperty(None)
+    joy = Joystick(0, False)
+
+    def start_joy_thread(self):  # This should be inside the MainScreen Class
+        Thread(target=self.joy_update).start()
+
+    def joy_update(self):  # This should be inside the MainScreen Class
+        while True:
+            if self.joy.get_button_state(0) == 1:
+                self.joy_label.text = "Pressed"
+            else:
+                self.joy_label.text = "Not Pressed"
+            sleep(.1)
 
     def pressed(self):
         """
@@ -87,12 +107,6 @@ class MainScreen(Screen):
         i = int(self.counter_label.text)
         value = int(i+1)
         self.counter_label.text = str(value)
-
-    def motor_toggle(self):
-        if self.motor_label.text == "Motor OFF":
-            self.motor_label.text = "Motor ON"
-        else:
-            self.motor_label.text = "Motor OFF"
 
     def slider_press(self):
         value = int(self.slider.value)
